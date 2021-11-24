@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 	</PropertyGroup>
-	<PropertyGroup Condition=" '$(RunConfiguration)' == 'Catalog.API' " />
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'DevShop.Services.ProductCatalog' " />
 	<ItemGroup>
 		<None Remove="Entities\" />
@@ -11,6 +10,7 @@
 		<None Remove="EntityFramework" />
 		<None Remove="Microsoft.EntityFrameworkCore" />
 		<None Remove="Infra\CategoriesEntityTypeConfiguration\" />
+		<None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Entities\" />
@@ -19,5 +19,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
 	</ItemGroup>
 </Project>
