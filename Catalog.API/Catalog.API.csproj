@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'Catalog.API' " />
+	<ItemGroup>
+		<None Remove="Entities\" />
+		<None Remove="Infrastructure\" />
+		<None Remove="EntityFramework" />
+		<None Remove="Microsoft.EntityFrameworkCore" />
+		<None Remove="Infra\CategoriesEntityTypeConfiguration\" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Entities\" />
+		<Folder Include="Infra\" />
+		<Folder Include="Infra\EntityConfigurations\" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
+	</ItemGroup>
+</Project>

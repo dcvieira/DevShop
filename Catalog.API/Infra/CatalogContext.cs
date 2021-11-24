@@ -15,7 +15,7 @@ namespace Catalog.API.Infra
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration<Category>(new CategoryEntityConfiguration());
+            builder.ApplyConfiguration(new CategoryEntityConfiguration());
         }
     }
 }

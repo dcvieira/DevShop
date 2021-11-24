@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.810.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{CEE02CA8-0CE9-44D9-A37E-47141D104A99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "DevShop.Services.ProductCatalog\Catalog.API.csproj", "{12C6DCDA-E566-4F3A-A40D-9B2BD1D67628}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{5F9B1299-5A9C-489B-A9E5-2E74545FB729}"
+EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Catalog.API", "Catalog.API\Catalog.API.csproj", "{D1995564-DF3F-4C70-B254-F43B940B87FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{12C6DCDA-E566-4F3A-A40D-9B2BD1D67628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{12C6DCDA-E566-4F3A-A40D-9B2BD1D67628}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{12C6DCDA-E566-4F3A-A40D-9B2BD1D67628}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{12C6DCDA-E566-4F3A-A40D-9B2BD1D67628}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1995564-DF3F-4C70-B254-F43B940B87FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1995564-DF3F-4C70-B254-F43B940B87FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1995564-DF3F-4C70-B254-F43B940B87FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1995564-DF3F-4C70-B254-F43B940B87FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -27,7 +27,7 @@ Global
 		SolutionGuid = {30EFCE3E-59AC-4DA6-A4C3-1994B383DE4E}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{12C6DCDA-E566-4F3A-A40D-9B2BD1D67628} = {5F9B1299-5A9C-489B-A9E5-2E74545FB729}
 		{5F9B1299-5A9C-489B-A9E5-2E74545FB729} = {CEE02CA8-0CE9-44D9-A37E-47141D104A99}
+		{D1995564-DF3F-4C70-B254-F43B940B87FD} = {5F9B1299-5A9C-489B-A9E5-2E74545FB729}
 	EndGlobalSection
 EndGlobal
