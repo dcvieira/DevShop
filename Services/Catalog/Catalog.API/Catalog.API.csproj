@@ -11,11 +11,13 @@
 		<None Remove="Microsoft.EntityFrameworkCore" />
 		<None Remove="Infra\CategoriesEntityTypeConfiguration\" />
 		<None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+		<None Remove="Infra\Repository\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Entities\" />
 		<Folder Include="Infra\" />
 		<Folder Include="Infra\EntityConfigurations\" />
+		<Folder Include="Infra\Repository\" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
