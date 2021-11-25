@@ -1,7 +1,7 @@
 ﻿using System;
-namespace Catalog.API.Entities
+namespace Catalog.API.Models
 {
-    public class CatalogItem
+    public class CatalogItemDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -9,6 +9,6 @@ namespace Catalog.API.Entities
         public string Description { get; set; }
         public string ImgUrl { get; set; }
         public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
+        public string CategoryName { get; set; }
     }
 }
