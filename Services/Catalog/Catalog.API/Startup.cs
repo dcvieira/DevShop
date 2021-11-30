@@ -62,6 +62,8 @@ namespace DevShop.Services.ProductCatalog
 
             app.UseRouting();
 
+            app.UseCors(options => options.AllowAnyOrigin());
+
             //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
