@@ -32,7 +32,7 @@ namespace DevShop.Services.ProductCatalog
             services.AddDbContext<CatalogContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<ICatalogItemQueries, CatalogItemQueries>();
+            services.AddScoped<ICatalogQueries, CatalogQueries>();
             services.AddControllers();
 
             services.AddSwaggerGen(c =>

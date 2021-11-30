@@ -7,11 +7,11 @@ namespace Catalog.API.Controllers
 {
     [Route("api/v1/catalog")]
     [ApiController]
-    public class CatalogItemController : ControllerBase
+    public class CatalogController : ControllerBase
     {
-        private readonly ICatalogItemQueries _catalogItemRepository;
+        private readonly ICatalogQueries _catalogItemRepository;
 
-        public CatalogItemController(ICatalogItemQueries catalogItemRepository)
+        public CatalogController(ICatalogQueries catalogItemRepository)
         {
             _catalogItemRepository = catalogItemRepository;
         }
@@ -20,6 +20,15 @@ namespace Catalog.API.Controllers
         public async Task<IActionResult> Get()
         {
             var items = await _catalogItemRepository.GetCatalogItems();
+
+            return Ok(items);
+        }
+
+        [HttpGet]
+        [Route("caregories")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var items = await _catalogItemRepository.GetCatalogCategories();
 
             return Ok(items);
         }
