@@ -25,7 +25,7 @@ namespace Catalog.API.Controllers
         }
 
         [HttpGet]
-        [Route("caregories")]
+        [Route("categories")]
         public async Task<IActionResult> GetCategories()
         {
             var items = await _catalogItemRepository.GetCatalogCategories();
