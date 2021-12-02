@@ -35,6 +35,7 @@ namespace DevShop.Services.ProductCatalog
             services.AddScoped<ICatalogQueries, CatalogQueries>();
             services.AddControllers();
 
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog API", Version = "v1" });

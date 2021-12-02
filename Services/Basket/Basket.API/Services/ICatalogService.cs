@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
+
 namespace Basket.API.Services
 {
-    public interface IEventCatalogService
+    public interface ICatalogService
     {
-        Task<Event> GetEvent(Guid id);
+        Task<Models.CatalogItem> GetCatalogItem(Guid id);
     }
 }
