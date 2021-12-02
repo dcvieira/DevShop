@@ -27,6 +27,9 @@ namespace Basket.API
         {
 
             services.AddControllers();
+
+            services.AddHttpClient<ICatalogService, CatalogService>(c =>
+        c.BaseAddress = new Uri(Configuration["ApiConfigs:EventCatalog:Uri"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,4 +4,20 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Entities\" />
+    <None Remove="Models\" />
+    <None Remove="Infra\" />
+    <None Remove="Infra\Repositories\" />
+    <None Remove="Services\" />
+    <None Remove="HttpClientExtensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Models\" />
+    <Folder Include="Infra\" />
+    <Folder Include="Infra\Repositories\" />
+    <Folder Include="Services\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
 </Project>
