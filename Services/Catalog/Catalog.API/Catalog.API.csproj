@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 	</PropertyGroup>
-	<PropertyGroup Condition=" '$(RunConfiguration)' == 'DevShop.Services.ProductCatalog' " />
 	<ItemGroup>
 		<None Remove="Entities\" />
 		<None Remove="Infrastructure\" />

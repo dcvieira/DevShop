@@ -25,6 +25,15 @@ namespace Catalog.API.Controllers
         }
 
         [HttpGet]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var catalogItem = await _catalogItemRepository.GetCatalogItemById(id);
+
+            return Ok(catalogItem);
+        }
+
+        [HttpGet]
         [Route("categories")]
         public async Task<IActionResult> GetCategories()
         {

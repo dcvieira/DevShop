@@ -19,7 +19,7 @@ namespace Basket.API.Services
 
         public async Task<CatalogItem> GetCatalogItem(Guid id)
         {
-            var response = await client.GetAsync($"/api/events/{id}");
+            var response = await client.GetAsync($"/api/v1/catalog/{id}");
             return await response.ReadContentAs<Models.CatalogItem>();
         }
     }

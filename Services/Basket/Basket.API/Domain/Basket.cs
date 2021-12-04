@@ -7,7 +7,7 @@ namespace Basket.API.Domain
     {
         public Guid BuyerId { get; set; }
 
-        public List<BasketItem> Items { get; private set; } = new();
+        public List<BasketItem> Items { get; set; } = new();
 
         public Basket()
         {

@@ -42,5 +42,22 @@ namespace Catalog.API.Application.Queries
             }).ToArrayAsync();
         }
 
+
+        public async Task<CatalogItemDto> GetCatalogItemById(Guid id)
+        {
+            var catalogItem = await _context.CatalogItems.Include(c => c.Category).FirstOrDefaultAsync(c => c.Id == id);
+
+            return new CatalogItemDto
+            {
+                Id = catalogItem.Id,
+                Name = catalogItem.Name,
+                Description = catalogItem.Description,
+                Price = catalogItem.Price,
+                ImgUrl = catalogItem.ImgUrl,
+                CategoryId = catalogItem.Category.CategoryId,
+                CategoryName = catalogItem.Category.Name
+            };
+        }
+
     }
 }

@@ -7,7 +7,7 @@ namespace Basket.API.Domain
 
         public BasketItem(Guid productId, string productName, decimal unitPrice, int quantity, string imgUrl)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             ProductId = productId;
             ProductName = productName;
             UnitPrice = unitPrice;

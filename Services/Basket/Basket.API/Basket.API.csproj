@@ -11,6 +11,8 @@
     <None Remove="Infra\Repositories\" />
     <None Remove="Services\" />
     <None Remove="HttpClientExtensions\" />
+    <None Remove="Microsoft.Extensions.Caching.StackExchangeRedis" />
+    <None Remove="Swashbuckle.AspNetCore" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
@@ -19,5 +21,9 @@
     <Folder Include="Infra\Repositories\" />
     <Folder Include="Services\" />
     <Folder Include="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 </Project>

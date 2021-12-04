@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Basket.API.Domain;
+using Basket.API.Infra.Repositories;
 using Basket.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace Basket.API
 {
@@ -29,8 +32,27 @@ namespace Basket.API
 
             services.AddControllers();
 
+            /// uncomment to use in memory cache implementation of IDistributedCache
+            /// useful during development, or for single server deployments
+            services.AddDistributedMemoryCache();
+
+            /// uncomment to use Azure Cache for Redis implementation of IDistributedCache
+            /// requires creating the Resource in Azure and copying connection string settings into appsettings.json
+            //services.AddStackExchangeRedisCache(options =>
+            //{
+            //    options.Configuration = Configuration.GetConnectionString("RedisConnection");
+            //    options.InstanceName = "GloboTicket";
+            //});
+
+            services.AddScoped<IBasketRepository, BasketRepository>();
+
             services.AddHttpClient<ICatalogService, CatalogService>(c =>
-        c.BaseAddress = new Uri(Configuration["ApiConfigs:EventCatalog:Uri"]));
+                   c.BaseAddress = new Uri(Configuration["ApiConfigs:EventCatalog:Uri"]));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Basket API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +64,14 @@ namespace Basket.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Basket API V1");
+
+            });
 
             app.UseRouting();
 

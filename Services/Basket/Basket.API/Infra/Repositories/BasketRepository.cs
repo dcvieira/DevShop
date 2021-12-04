@@ -1,74 +1,69 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Basket.API.Domain;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Configuration;
+
 namespace Basket.API.Infra.Repositories
 {
-    public class RedisBasketRepository
+    public class BasketRepository : IBasketRepository
     {
-        public RedisBasketRepository()
+        private readonly IDistributedCache _distributedCache;
+        public IConfiguration Configuration { get; }
+
+        public BasketRepository(IDistributedCache distributedCache, IConfiguration configuration)
         {
+            _distributedCache = distributedCache;
+            Configuration = configuration;
         }
+
+        #region Basket Functions
+        public async Task<BasketDomain> GetBasketById(Guid basketId)
+        {
+            var asString = await _distributedCache.GetStringAsync(basketId.ToString());
+            if (string.IsNullOrEmpty(asString))
+            {
+                return new BasketDomain(new Domain.Basket(basketId));
+
+            }
+
+            else
+            {
+                var basketModel = JsonSerializer.Deserialize<Domain.Basket>(asString);
+                return new BasketDomain(basketModel);
+            }
+
+        }
+
+        public async Task<bool> BasketExists(Guid basketId)
+        {
+            var basket = await _distributedCache.GetAsync(basketId.ToString());
+            return basket != null;
+        }
+
+
+        public async Task ClearBasket(Guid basketId)
+        {
+            await _distributedCache.RemoveAsync(basketId.ToString());
+        }
+
+        public async Task SaveBasket(BasketDomain basketDomain)
+        {
+            var basket = basketDomain.GetBasket();
+            var asString = JsonSerializer.Serialize(basket);
+
+            int cacheDuration = int.Parse(Configuration["CacheDurationMinutes"]);
+
+            var options = new DistributedCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromMinutes(cacheDuration));
+
+            await _distributedCache.SetStringAsync(basket.BuyerId.ToString(), asString, options);
+        }
+
+        #endregion
     }
 }
-
-
-//public class RedisBasketRepository : IBasketRepository
-//{
-//    private readonly ILogger<RedisBasketRepository> _logger;
-//    private readonly ConnectionMultiplexer _redis;
-//    private readonly IDatabase _database;
-
-//    public RedisBasketRepository(ILoggerFactory loggerFactory, ConnectionMultiplexer redis)
-//    {
-//        _logger = loggerFactory.CreateLogger<RedisBasketRepository>();
-//        _redis = redis;
-//        _database = redis.GetDatabase();
-//    }
-
-//    public async Task<bool> DeleteBasketAsync(string id)
-//    {
-//        return await _database.KeyDeleteAsync(id);
-//    }
-
-//    public IEnumerable<string> GetUsers()
-//    {
-//        var server = GetServer();
-//        var data = server.Keys();
-
-//        return data?.Select(k => k.ToString());
-//    }
-
-//    public async Task<CustomerBasket> GetBasketAsync(string customerId)
-//    {
-//        var data = await _database.StringGetAsync(customerId);
-
-//        if (data.IsNullOrEmpty)
-//        {
-//            return null;
-//        }
-
-//        return JsonSerializer.Deserialize<CustomerBasket>(data, new JsonSerializerOptions
-//        {
-//            PropertyNameCaseInsensitive = true
-//        });
-//    }
-
-//    public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket)
-//    {
-//        var created = await _database.StringSetAsync(basket.BuyerId, JsonSerializer.Serialize(basket));
-
-//        if (!created)
-//        {
-//            _logger.LogInformation("Problem occur persisting the item.");
-//            return null;
-//        }
-
-//        _logger.LogInformation("Basket item persisted succesfully.");
-
-//        return await GetBasketAsync(basket.BuyerId);
-//    }
-
-//    private IServer GetServer()
-//    {
-//        var endpoint = _redis.GetEndPoints();
-//        return _redis.GetServer(endpoint.First());
-//    }
-//}

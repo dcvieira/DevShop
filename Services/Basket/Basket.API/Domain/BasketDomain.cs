@@ -12,6 +12,11 @@ namespace Basket.API.Domain
             _basket = basket;
         }
 
+        public Basket GetBasket()
+        {
+            return _basket;
+        }
+
         public void AddBasketItem(Guid productId, string productName, decimal unitPrice, int quantity, string ImgUrl)
 
         {
@@ -30,6 +35,16 @@ namespace Basket.API.Domain
                 existingItem.ProductName = productName;
                 existingItem.UnitPrice = unitPrice;
                 existingItem.ImgUrl = ImgUrl;
+            }
+        }
+
+        public void UpdateBasketItemQuantity(Guid productId, int newQuantity)
+        {
+            var existingItem = _basket.Items.FirstOrDefault(item => item.ProductId == productId);
+
+            if (existingItem != null)
+            {
+                existingItem.Quantity = newQuantity;
             }
         }
 
