@@ -48,6 +48,16 @@ namespace Basket.API.Domain
             }
         }
 
+        public void RemoveBasketItem(Guid basketItemId)
+        {
+            var existingItem = _basket.Items.FirstOrDefault(item => item.Id == basketItemId);
+
+            if (existingItem != null)
+            {
+                _basket.Items.Remove(existingItem);
+            }
+        }
+
     }
 }
 

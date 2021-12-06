@@ -79,5 +79,24 @@ namespace Basket.API.Controllers
             return Ok();
 
         }
+
+        [HttpDelete]
+        [Route("{basketItemId:guid}")]
+        public async Task<ActionResult> RemoveBasketItemAsync(Guid basketItemId)
+        {
+
+
+            // Get current Basket status
+            var basket = await _basketRepository.GetBasketById(UserFakeService.GetUser());
+
+            // Add item to basket
+            basket.RemoveBasketItem(basketItemId);
+
+            // Step 4 Save Basket in Cache
+            await _basketRepository.SaveBasket(basket);
+
+            return Ok();
+
+        }
     }
 }
