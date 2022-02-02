@@ -24,17 +24,20 @@ namespace Basket.API.Infra.Repositories
         #region Basket Functions
         public async Task<BasketDomain> GetBasketById(Guid basketId)
         {
-            var asString = await _distributedCache.GetStringAsync(basketId.ToString());
-            if (string.IsNullOrEmpty(asString))
+            var bytes = await _distributedCache.GetAsync(basketId.ToString());
+            if (bytes.Length == 0)
             {
                 return new BasketDomain(new Domain.Basket(basketId));
 
             }
-
             else
             {
-                var basketModel = JsonSerializer.Deserialize<Domain.Basket>(asString);
-                return new BasketDomain(basketModel);
+                using (var stream = new MemoryStream(bytes))
+                {
+                    var basketModel = await JsonSerializer.DeserializeAsync<Domain.Basket>(stream);
+                    return new BasketDomain(basketModel);
+                }
+
             }
 
         }
@@ -54,14 +57,14 @@ namespace Basket.API.Infra.Repositories
         public async Task SaveBasket(BasketDomain basketDomain)
         {
             var basket = basketDomain.GetBasket();
-            var asString = JsonSerializer.Serialize(basket);
+            var asBytes = JsonSerializer.SerializeToUtf8Bytes(basket);
 
             int cacheDuration = int.Parse(Configuration["CacheDurationMinutes"]);
 
             var options = new DistributedCacheEntryOptions()
                 .SetSlidingExpiration(TimeSpan.FromMinutes(cacheDuration));
 
-            await _distributedCache.SetStringAsync(basket.BuyerId.ToString(), asString, options);
+            await _distributedCache.SetAsync(basket.BuyerId.ToString(), asBytes, options);
         }
 
         #endregion
