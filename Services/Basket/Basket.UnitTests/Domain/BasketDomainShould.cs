@@ -6,10 +6,6 @@ namespace Basket.UnitTests.Domain
 {
     public class BasketDomainShould
     {
-        public BasketDomainShould()
-        {
-        }
-
 
         [Fact]
         public void Add_basket_Item()
@@ -79,6 +75,21 @@ namespace Basket.UnitTests.Domain
             var productName = "test product";
             basketDomain.AddBasketItem(productId, productName, 20, 1, "");
             var basketItemId = basketDomain.GetBasket().Items[0].Id;
+
+            // Act
+            basketDomain.RemoveBasketItem(basketItemId);
+
+            // Assert
+            Assert.Empty(basketDomain.GetBasket().Items);
+        }
+
+        [Fact]
+        public void Remove_basket_item_when_basket_is_empty()
+        {
+            // Arrange
+            var basket = new API.Domain.Basket();
+            var basketDomain = new BasketDomain(basket);
+            var basketItemId = Guid.NewGuid();
 
             // Act
             basketDomain.RemoveBasketItem(basketItemId);

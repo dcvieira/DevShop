@@ -18,13 +18,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Moq" Version="4.16.1" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Domain\" />
+    <None Remove="Infra\" />
+    <None Remove="Moq" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
+    <Folder Include="Infra\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basket.API\Basket.API.csproj" />
