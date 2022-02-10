@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Basket.API.Domain;
 using Basket.API.Infra.Repositories;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
@@ -61,5 +62,45 @@ namespace Basket.UnitTests.Basket.Basket.UnitTests.Infra
             Assert.Single(basketDomain.GetBasket().Items);
             Assert.Equal(basketId, basketDomain.GetBasket().BuyerId);
         }
+
+        [Fact]
+        public async Task Basket_exists_return_true()
+        {
+            var emptyByteArray = new byte[] { };
+            mockDistributedCache.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(emptyByteArray);
+            var basketId = Guid.NewGuid();
+
+            var basketExists = await sut.BasketExists(basketId);
+
+            Assert.True(basketExists);
+        }
+
+        [Fact]
+        public async Task Basket_exists_return_false()
+        {
+            var basketId = Guid.NewGuid();
+            mockDistributedCache.Setup(x => x.GetAsync(basketId.ToString(), It.IsAny<CancellationToken>())).ReturnsAsync(value: null);
+
+
+            var basketExists = await sut.BasketExists(basketId);
+
+            Assert.False(basketExists);
+        }
+
+        [Fact]
+        public async Task Save_basket()
+        {
+            var basketDomain = new BasketDomain(new API.Domain.Basket());
+
+            mockDistributedCache.Setup(mock => mock.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()));
+            mockIConfiguration.Setup(mock => mock["CacheDurationMinutes"]).Returns("1");
+
+            await sut.SaveBasket(basketDomain);
+
+            mockDistributedCache.Verify(mock => mock.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()), Times.Once());
+
+        }
+
+
     }
 }
