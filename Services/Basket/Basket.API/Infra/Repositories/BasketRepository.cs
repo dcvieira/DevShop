@@ -24,21 +24,17 @@ namespace Basket.API.Infra.Repositories
         #region Basket Functions
         public async Task<BasketDomain> GetBasketById(Guid basketId)
         {
-            var bytes = await _distributedCache.GetAsync(basketId.ToString());
-            if (bytes.Length == 0)
+            var bytesArray = await _distributedCache.GetAsync(basketId.ToString());
+
+
+            if (bytesArray?.Length > 0)
             {
-                return new BasketDomain(new Domain.Basket(basketId));
+                using var stream = new MemoryStream(bytesArray);
+                var basketModel = await JsonSerializer.DeserializeAsync<Domain.Basket>(stream);
+                return new BasketDomain(basketModel);
 
             }
-            else
-            {
-                using (var stream = new MemoryStream(bytes))
-                {
-                    var basketModel = await JsonSerializer.DeserializeAsync<Domain.Basket>(stream);
-                    return new BasketDomain(basketModel);
-                }
-
-            }
+            return new BasketDomain(new Domain.Basket(basketId));
 
         }
 
