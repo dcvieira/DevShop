@@ -11,7 +11,7 @@ namespace Basket.UnitTests.Domain
         public void Add_basket_Item()
         {
             // Arrange
-            var basket = new API.Domain.Basket();
+            var basket = new BasketModel();
             var basketDomain = new BasketDomain(basket);
             var productId = Guid.NewGuid();
             var productName = "test product";
@@ -30,7 +30,7 @@ namespace Basket.UnitTests.Domain
         public void Increment_basket_Item_quantity_when_product_exist()
         {
             // Arrange
-            var basket = new API.Domain.Basket();
+            var basket = new BasketModel();
             var basketDomain = new BasketDomain(basket);
             var productId = Guid.NewGuid();
             var productName = "test product";
@@ -50,7 +50,7 @@ namespace Basket.UnitTests.Domain
         public void Update_basket_item_quantity()
         {
             // Arrange
-            var basket = new API.Domain.Basket();
+            var basket = new BasketModel();
             var basketDomain = new BasketDomain(basket);
             var productId = Guid.NewGuid();
             var productName = "test product";
@@ -69,7 +69,7 @@ namespace Basket.UnitTests.Domain
         public void Remove_basket_item()
         {
             // Arrange
-            var basket = new API.Domain.Basket();
+            var basket = new BasketModel();
             var basketDomain = new BasketDomain(basket);
             var productId = Guid.NewGuid();
             var productName = "test product";
@@ -87,7 +87,7 @@ namespace Basket.UnitTests.Domain
         public void Remove_basket_item_when_basket_is_empty()
         {
             // Arrange
-            var basket = new API.Domain.Basket();
+            var basket = new BasketModel();
             var basketDomain = new BasketDomain(basket);
             var basketItemId = Guid.NewGuid();
 

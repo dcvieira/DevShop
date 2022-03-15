@@ -22,8 +22,12 @@
   <ItemGroup>
     <None Remove="Microsoft.AspNetCore.Mvc.Testing" />
     <None Remove="Controllers\" />
+    <None Remove="Models\" />
+    <None Remove="Fakes\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="Fakes\" />
   </ItemGroup>
 </Project>

@@ -42,7 +42,7 @@ namespace Basket.UnitTests.Basket.Basket.UnitTests.Infra
         public async Task Return_basket()
         {
             var basketId = Guid.NewGuid();
-            var basketModel = new API.Domain.Basket
+            var basketModel = new BasketModel
             {
                 BuyerId = basketId,
                 Items = new List<API.Domain.BasketItem>
@@ -90,7 +90,7 @@ namespace Basket.UnitTests.Basket.Basket.UnitTests.Infra
         [Fact]
         public async Task Save_basket()
         {
-            var basketDomain = new BasketDomain(new API.Domain.Basket());
+            var basketDomain = new BasketDomain(new BasketModel());
 
             mockDistributedCache.Setup(mock => mock.SetAsync(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<DistributedCacheEntryOptions>(), It.IsAny<CancellationToken>()));
             mockIConfiguration.Setup(mock => mock["CacheDurationMinutes"]).Returns("1");
