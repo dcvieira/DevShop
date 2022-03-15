@@ -5,14 +5,14 @@ namespace Basket.API.Domain
 {
     public class BasketDomain
     {
-        private readonly Basket _basket;
+        private readonly BasketModel _basket;
 
-        public BasketDomain(Basket basket)
+        public BasketDomain(BasketModel basket)
         {
             _basket = basket;
         }
 
-        public Basket GetBasket()
+        public BasketModel GetBasket()
         {
             return _basket;
         }

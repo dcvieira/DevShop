@@ -101,7 +101,7 @@ namespace Basket.API.Controllers
 
         [HttpDelete]
         [Route("clear")]
-        public async Task<ActionResult> ClearBasket(Guid basketItemId)
+        public async Task<ActionResult> ClearBasket()
         {
 
             await _basketRepository.ClearBasket(UserFakeService.GetUser());

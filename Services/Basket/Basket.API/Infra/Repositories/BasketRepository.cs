@@ -30,11 +30,11 @@ namespace Basket.API.Infra.Repositories
             if (bytesArray?.Length > 0)
             {
                 using var stream = new MemoryStream(bytesArray);
-                var basketModel = await JsonSerializer.DeserializeAsync<Domain.Basket>(stream);
+                var basketModel = await JsonSerializer.DeserializeAsync<BasketModel>(stream);
                 return new BasketDomain(basketModel);
 
             }
-            return new BasketDomain(new Domain.Basket(basketId));
+            return new BasketDomain(new BasketModel(basketId));
 
         }
 

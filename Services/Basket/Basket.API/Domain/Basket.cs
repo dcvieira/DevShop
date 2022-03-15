@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace Basket.API.Domain
 {
-    public class Basket
+    public class BasketModel
     {
         public Guid BuyerId { get; set; }
 
         public List<BasketItem> Items { get; set; } = new();
 
-        public Basket()
+        public BasketModel()
         {
         }
 
-        public Basket(Guid buyerId)
+        public BasketModel(Guid buyerId)
         {
             BuyerId = buyerId;
         }
